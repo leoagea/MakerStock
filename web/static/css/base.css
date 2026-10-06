@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    color: #1a1a1a;
+    background: #fafafa;
+}
+
+header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+header a {
+    color: inherit;
+    text-decoration: none;
+}
+
+main {
+    padding: 1.5rem;
+}
