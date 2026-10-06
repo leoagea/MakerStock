@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Components</h2>
+
+<form method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search components...">
+    <select name="category">
+        <option value="">All categories</option>
+        {% for category in categories %}
+            <option value="{{ category.pk }}" {% if selected_category == category.pk|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+        {% endfor %}
+    </select>
+    <select name="manufacturer">
+        <option value="">All manufacturers</option>
+        {% for manufacturer in manufacturers %}
+            <option value="{{ manufacturer.pk }}" {% if selected_manufacturer == manufacturer.pk|stringformat:"s" %}selected{% endif %}>{{ manufacturer.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<p><a href="{% url 'components:component_add' %}">Add component</a></p>
+
+<ul>
+    {% for component in components %}
+        <li>
+            <a href="{% url 'components:component_detail' component.pk %}">{{ component.display_name }}</a>
+            — {{ component.category.name }}{% if component.manufacturer %} ({{ component.manufacturer.name }}){% endif %}
+        </li>
+    {% empty %}
+        <li>No components found.</li>
+    {% endfor %}
+</ul>
+
+{% if is_paginated %}
+<p>
+    {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Next</a>{% endif %}
+</p>
+{% endif %}
+{% endblock %}

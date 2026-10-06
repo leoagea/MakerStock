@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p><a href="{% url 'components:component_list' %}">All components</a></p>
+<h2>{{ component.display_name }}</h2>
+<p>Category: {{ component.category.name }}</p>
+{% if component.manufacturer %}<p>Manufacturer: {{ component.manufacturer.name }}</p>{% endif %}
+{% if component.manufacturer_part_number %}<p>Part number: {{ component.manufacturer_part_number }}</p>{% endif %}
+{% if component.description %}<p>{{ component.description }}</p>{% endif %}
+{% if component.datasheet_url %}<p><a href="{{ component.datasheet_url }}">Datasheet</a></p>{% endif %}
+
+<p><a href="{% url 'components:component_edit' component.pk %}">Edit</a></p>
+
+<h3>Storage locations</h3>
+<ul>
+  {% for entry in component.stock_entries.all %}
+    <li>
+        <a href="{% url 'storage:drawer_detail' entry.drawer.pk %}">{{ entry.drawer.full_path }}</a>
+        — qty {{ entry.quantity }}{% if entry.is_low_stock %} (low stock){% endif %}
+        <a href="{% url 'inventory:inventory_edit' entry.pk %}">edit</a>
+    </li>
+  {% empty %}
+    <li>Not stored anywhere yet.</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'inventory:inventory_add' %}?component={{ component.pk }}">Add stock</a></p>
+{% endblock %}

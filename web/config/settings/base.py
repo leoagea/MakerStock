@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django_htmx",
     "apps.core",
     "apps.storage",
+    "apps.components",
 ]
 
 MIDDLEWARE = [
