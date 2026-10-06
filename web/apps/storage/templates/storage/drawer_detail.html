@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p><a href="{% url 'storage:frame_detail' drawer.frame.pk %}">{{ drawer.frame.full_path }}</a></p>
+<h2>Drawer {{ drawer.code }}</h2>
+<p>{{ drawer.full_path }}</p>
+
+<h3>Contents</h3>
+<p>Component tracking isn't wired up yet — coming with the inventory app.</p>
+{% endblock %}

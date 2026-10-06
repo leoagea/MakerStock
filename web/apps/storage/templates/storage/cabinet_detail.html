@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p><a href="{% url 'storage:system_detail' cabinet.system.pk %}">{{ cabinet.system.name }}</a></p>
+<h2>Cabinet {{ cabinet.code }}</h2>
+
+<h3>Frames</h3>
+<ul>
+  {% for frame in cabinet.frames.all %}
+    <li><a href="{% url 'storage:frame_detail' frame.pk %}">Frame {{ frame.code }}</a></li>
+  {% empty %}
+    <li>No frames yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

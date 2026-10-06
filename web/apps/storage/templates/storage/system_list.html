@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Storage systems</h2>
+<ul>
+  {% for system in systems %}
+    <li><a href="{% url 'storage:system_detail' system.pk %}">{{ system.name }}</a></li>
+  {% empty %}
+    <li>No storage systems yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
