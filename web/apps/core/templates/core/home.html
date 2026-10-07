@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>MakerStock is running. Components and storage locations will show up here.</p>
+<h2>Dashboard</h2>
+<p>{{ component_count }} component{{ component_count|pluralize }} across {{ drawer_count }} drawer{{ drawer_count|pluralize }}.</p>
+
+<h3>Low stock</h3>
+<ul>
+  {% for entry in low_stock_entries %}
+    <li>
+        <a href="{% url 'components:component_detail' entry.component.pk %}">{{ entry.component.display_name }}</a>
+        in <a href="{% url 'storage:drawer_detail' entry.drawer.pk %}">{{ entry.drawer.full_path }}</a>
+        — qty {{ entry.quantity }} (threshold {{ entry.low_stock_threshold }})
+    </li>
+  {% empty %}
+    <li>Nothing is low on stock.</li>
+  {% endfor %}
+</ul>
 {% endblock %}

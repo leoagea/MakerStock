@@ -13,6 +13,7 @@
         <nav>
             <a href="{% url 'components:component_list' %}">Components</a>
             <a href="{% url 'storage:system_list' %}">Storage</a>
+            <a href="{% url 'components:catalog_admin' %}">Catalog admin</a>
             {% if user.is_authenticated %}
                 <form method="post" action="{% url 'logout' %}" style="display:inline">
                     {% csrf_token %}

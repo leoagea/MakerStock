@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p><a href="{% url 'components:catalog_admin' %}">Catalog admin</a></p>
+<h2>Edit manufacturer</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}
