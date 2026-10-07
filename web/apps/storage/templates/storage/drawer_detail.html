@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p><a href="{% url 'storage:cabinet_detail' drawer.cabinet.pk %}">{{ drawer.cabinet.full_path }}</a></p>
-<h2>Drawer {{ drawer.code }}</h2>
-<p>{{ drawer.full_path }}</p>
+<div class="page-header">
+    <a href="{% url 'storage:cabinet_detail' drawer.cabinet.pk %}" class="breadcrumb">← {{ drawer.cabinet.full_path }}</a>
+    <h2>Drawer {{ drawer.code }}</h2>
+    <span class="hint">{{ drawer.full_path }}</span>
+</div>
 
 <h3>Contents</h3>
-<ul>
+<ul class="list-card">
   {% for entry in drawer.stock_entries.all %}
     {% include "inventory/_stock_entry_row.html" with entry=entry show="component" %}
   {% empty %}
-    <li>Nothing stored here yet.</li>
+    <li class="list-card__item list-card__item--empty">Nothing stored here yet.</li>
   {% endfor %}
 </ul>
-<p><a href="{% url 'inventory:inventory_add' %}?drawer={{ drawer.pk }}">Add stock</a></p>
+<p><a href="{% url 'inventory:inventory_add' %}?drawer={{ drawer.pk }}">+ Add stock</a></p>
 {% endblock %}

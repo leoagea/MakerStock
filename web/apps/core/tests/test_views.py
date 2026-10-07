@@ -18,8 +18,8 @@ def test_dashboard_shows_counts_and_low_stock(client):
     response = client.get(reverse("home"))
 
     assert response.status_code == 200
-    assert b"1 component" in response.content
-    assert b"1 drawer" in response.content
+    assert response.context["component_count"] == 1
+    assert response.context["drawer_count"] == 1
     assert b"10k" in response.content
     assert b"qty 2" in response.content
 

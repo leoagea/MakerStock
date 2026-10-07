@@ -1,46 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Catalog admin</h2>
-<p>Add the categories and manufacturers components are built from.</p>
+<div class="page-header">
+    <h2>Catalog admin</h2>
+    <span class="hint">Add the categories and manufacturers components are built from.</span>
+</div>
 
 <section>
     <h3>Categories</h3>
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="add_category">
-        {{ category_form.as_p }}
-        <button type="submit">Add category</button>
-    </form>
-    <ul>
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_category">
+            {{ category_form.as_p }}
+            <button type="submit">Add category</button>
+        </form>
+    </div>
+    <ul class="list-card">
         {% for category in categories %}
-            <li>
-                {{ category.name }}{% if category.unit %} ({{ category.unit }}){% endif %}
-                {% if category.parent %} — under {{ category.parent.name }}{% endif %}
-                <a href="{% url 'components:category_edit' category.pk %}">edit</a>
+            <li class="list-card__item">
+                <div class="list-card__main">
+                    {{ category.name }}
+                    <span class="list-card__meta">{% if category.unit %}unit: {{ category.unit }}{% endif %}{% if category.parent %} · under {{ category.parent.name }}{% endif %}</span>
+                </div>
+                <div class="list-card__actions">
+                    <a href="{% url 'components:category_edit' category.pk %}">edit</a>
+                </div>
             </li>
         {% empty %}
-            <li>No categories yet.</li>
+            <li class="list-card__item list-card__item--empty">No categories yet.</li>
         {% endfor %}
     </ul>
 </section>
 
 <section>
     <h3>Manufacturers</h3>
-    <form method="post">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="add_manufacturer">
-        {{ manufacturer_form.as_p }}
-        <button type="submit">Add manufacturer</button>
-    </form>
-    <ul>
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_manufacturer">
+            {{ manufacturer_form.as_p }}
+            <button type="submit">Add manufacturer</button>
+        </form>
+    </div>
+    <ul class="list-card">
         {% for manufacturer in manufacturers %}
-            <li>
-                {{ manufacturer.name }}{% if manufacturer.website %} — <a href="{{ manufacturer.website }}">{{ manufacturer.website }}</a>{% endif %}
-                <a href="{% url 'components:manufacturer_edit' manufacturer.pk %}">edit</a>
+            <li class="list-card__item">
+                <div class="list-card__main">
+                    {{ manufacturer.name }}
+                    {% if manufacturer.website %}<span class="list-card__meta"><a href="{{ manufacturer.website }}">{{ manufacturer.website }}</a></span>{% endif %}
+                </div>
+                <div class="list-card__actions">
+                    <a href="{% url 'components:manufacturer_edit' manufacturer.pk %}">edit</a>
+                </div>
             </li>
         {% empty %}
-            <li>No manufacturers yet.</li>
+            <li class="list-card__item list-card__item--empty">No manufacturers yet.</li>
         {% endfor %}
     </ul>
 </section>

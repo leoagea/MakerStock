@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{% if inventory %}Edit stock entry{% else %}Add stock{% endif %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+<div class="page-header">
+    <h2>{% if inventory %}Edit stock entry{% else %}Add stock{% endif %}</h2>
+</div>
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</div>
 {% endblock %}

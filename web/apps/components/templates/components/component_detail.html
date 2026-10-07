@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p><a href="{% url 'components:component_list' %}">All components</a></p>
-<h2>{{ component.display_name }}</h2>
-<p>Category: {{ component.category.name }}</p>
-{% if component.manufacturer %}<p>Manufacturer: {{ component.manufacturer.name }}</p>{% endif %}
-{% if component.manufacturer_part_number %}<p>Part number: {{ component.manufacturer_part_number }}</p>{% endif %}
-{% if component.description %}<p>{{ component.description }}</p>{% endif %}
-{% if component.datasheet_url %}<p><a href="{{ component.datasheet_url }}">Datasheet</a></p>{% endif %}
+<div class="page-header">
+    <a href="{% url 'components:component_list' %}" class="breadcrumb">← All components</a>
+    <h2>{{ component.display_name }}</h2>
+    <span class="hint">{{ component.category.name }}{% if component.manufacturer %} · {{ component.manufacturer.name }}{% endif %}</span>
+</div>
 
-<p><a href="{% url 'components:component_edit' component.pk %}">Edit</a></p>
+<div class="card">
+    {% if component.manufacturer_part_number %}<p><strong>Part number:</strong> {{ component.manufacturer_part_number }}</p>{% endif %}
+    {% if component.description %}<p>{{ component.description }}</p>{% endif %}
+    {% if component.datasheet_url %}<p><a href="{{ component.datasheet_url }}">Datasheet</a></p>{% endif %}
+    <a href="{% url 'components:component_edit' component.pk %}" class="btn secondary">Edit</a>
+</div>
 
 <h3>Storage locations</h3>
-<ul>
+<ul class="list-card">
   {% for entry in component.stock_entries.all %}
     {% include "inventory/_stock_entry_row.html" with entry=entry show="drawer" %}
   {% empty %}
-    <li>Not stored anywhere yet.</li>
+    <li class="list-card__item list-card__item--empty">Not stored anywhere yet.</li>
   {% endfor %}
 </ul>
-<p><a href="{% url 'inventory:inventory_add' %}?component={{ component.pk }}">Add stock</a></p>
+<p><a href="{% url 'inventory:inventory_add' %}?component={{ component.pk }}">+ Add stock</a></p>
 {% endblock %}

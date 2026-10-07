@@ -1,19 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Dashboard</h2>
-<p>{{ component_count }} component{{ component_count|pluralize }} across {{ drawer_count }} drawer{{ drawer_count|pluralize }}.</p>
+<div class="page-header">
+    <h2>Dashboard</h2>
+</div>
+
+<div class="stat-banner">
+    <div class="stat-banner__item">
+        <span class="stat-banner__value">{{ component_count }}</span>
+        <span class="stat-banner__label">component{{ component_count|pluralize }}</span>
+    </div>
+    <div class="stat-banner__item">
+        <span class="stat-banner__value">{{ drawer_count }}</span>
+        <span class="stat-banner__label">drawer{{ drawer_count|pluralize }}</span>
+    </div>
+</div>
 
 <h3>Low stock</h3>
-<ul>
+<ul class="list-card">
   {% for entry in low_stock_entries %}
-    <li>
-        <a href="{% url 'components:component_detail' entry.component.pk %}">{{ entry.component.display_name }}</a>
-        in <a href="{% url 'storage:drawer_detail' entry.drawer.pk %}">{{ entry.drawer.full_path }}</a>
-        — qty {{ entry.quantity }} (threshold {{ entry.low_stock_threshold }})
+    <li class="list-card__item">
+        <div class="list-card__main">
+            <a href="{% url 'components:component_detail' entry.component.pk %}">{{ entry.component.display_name }}</a>
+            <span class="list-card__meta">in <a href="{% url 'storage:drawer_detail' entry.drawer.pk %}">{{ entry.drawer.full_path }}</a> · qty {{ entry.quantity }} (threshold {{ entry.low_stock_threshold }})</span>
+        </div>
+        <span class="badge badge--low-stock">low stock</span>
     </li>
   {% empty %}
-    <li>Nothing is low on stock.</li>
+    <li class="list-card__item list-card__item--empty">Nothing is low on stock.</li>
   {% endfor %}
 </ul>
 {% endblock %}

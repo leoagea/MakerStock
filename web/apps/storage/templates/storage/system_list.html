@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Storage systems</h2>
-<ul>
+<div class="page-header">
+    <h2>Storage systems</h2>
+</div>
+<ul class="list-card">
   {% for system in systems %}
-    <li><a href="{% url 'storage:system_detail' system.pk %}">{{ system.name }}</a></li>
+    <li class="list-card__item">
+        <a href="{% url 'storage:system_detail' system.pk %}">{{ system.name }}</a>
+    </li>
   {% empty %}
-    <li>No storage systems yet.</li>
+    <li class="list-card__item list-card__item--empty">No storage systems yet.</li>
   {% endfor %}
 </ul>
 {% endblock %}

@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>{% if component %}Edit {{ component.display_name }}{% else %}Add component{% endif %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
-<p>Need a new category or manufacturer? <a href="{% url 'components:catalog_admin' %}">Manage them here</a>.</p>
+<div class="page-header">
+    <h2>{% if component %}Edit {{ component.display_name }}{% else %}Add component{% endif %}</h2>
+</div>
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</div>
+<p class="hint">Need a new category or manufacturer? <a href="{% url 'components:catalog_admin' %}">Manage them here</a>.</p>
 {% endblock %}
