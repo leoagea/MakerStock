@@ -30,3 +30,4 @@ class CabinetAdmin(admin.ModelAdmin):
 class DrawerAdmin(admin.ModelAdmin):
     list_display = ("code", "cabinet")
     list_filter = ("cabinet__system", "cabinet")
+    search_fields = ("code",)

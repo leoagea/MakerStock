@@ -1,4 +1,6 @@
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, UpdateView
 
 from .forms import InventoryForm
@@ -22,6 +24,24 @@ class InventoryCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy("components:component_detail", kwargs={"pk": self.object.component_id})
+
+
+class InventoryQuantityUpdateView(View):
+    """HTMX endpoint: updates an entry's quantity in place and re-renders its row."""
+
+    def post(self, request, pk):
+        entry = get_object_or_404(Inventory, pk=pk)
+        try:
+            quantity = int(request.POST.get("quantity", ""))
+        except (TypeError, ValueError):
+            quantity = None
+
+        if quantity is not None and quantity >= 0:
+            entry.quantity = quantity
+            entry.save(update_fields=["quantity"])
+
+        show = request.GET.get("show", "drawer")
+        return render(request, "inventory/_stock_entry_row.html", {"entry": entry, "show": show})
 
 
 class InventoryUpdateView(UpdateView):

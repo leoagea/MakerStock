@@ -14,11 +14,7 @@
 <h3>Storage locations</h3>
 <ul>
   {% for entry in component.stock_entries.all %}
-    <li>
-        <a href="{% url 'storage:drawer_detail' entry.drawer.pk %}">{{ entry.drawer.full_path }}</a>
-        — qty {{ entry.quantity }}{% if entry.is_low_stock %} (low stock){% endif %}
-        <a href="{% url 'inventory:inventory_edit' entry.pk %}">edit</a>
-    </li>
+    {% include "inventory/_stock_entry_row.html" with entry=entry show="drawer" %}
   {% empty %}
     <li>Not stored anywhere yet.</li>
   {% endfor %}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}MakerStock{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="{% static 'vendor/htmx.min.js' %}" defer></script>
 </head>
 <body>
     <header>
@@ -12,6 +13,12 @@
         <nav>
             <a href="{% url 'components:component_list' %}">Components</a>
             <a href="{% url 'storage:system_list' %}">Storage</a>
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}" style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit">Log out ({{ user.username }})</button>
+                </form>
+            {% endif %}
         </nav>
     </header>
     <main>

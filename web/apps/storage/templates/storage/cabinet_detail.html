@@ -4,12 +4,12 @@
 <p><a href="{% url 'storage:system_detail' cabinet.system.pk %}">{{ cabinet.system.name }}</a></p>
 <h2>Cabinet {{ cabinet.code }}</h2>
 
-<h3>Frames</h3>
+<h3>Drawers</h3>
 <ul>
-  {% for frame in cabinet.frames.all %}
-    <li><a href="{% url 'storage:frame_detail' frame.pk %}">Frame {{ frame.code }}</a></li>
+  {% for drawer in cabinet.drawers.all %}
+    <li><a href="{% url 'storage:drawer_detail' drawer.pk %}">Drawer {{ drawer.code }}</a></li>
   {% empty %}
-    <li>No frames yet.</li>
+    <li>No drawers yet.</li>
   {% endfor %}
 </ul>
 {% endblock %}

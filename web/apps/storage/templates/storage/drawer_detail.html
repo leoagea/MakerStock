@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p><a href="{% url 'storage:frame_detail' drawer.frame.pk %}">{{ drawer.frame.full_path }}</a></p>
+<p><a href="{% url 'storage:cabinet_detail' drawer.cabinet.pk %}">{{ drawer.cabinet.full_path }}</a></p>
 <h2>Drawer {{ drawer.code }}</h2>
 <p>{{ drawer.full_path }}</p>
 
 <h3>Contents</h3>
-<p>Component tracking isn't wired up yet — coming with the inventory app.</p>
+<ul>
+  {% for entry in drawer.stock_entries.all %}
+    {% include "inventory/_stock_entry_row.html" with entry=entry show="component" %}
+  {% empty %}
+    <li>Nothing stored here yet.</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'inventory:inventory_add' %}?drawer={{ drawer.pk }}">Add stock</a></p>
 {% endblock %}

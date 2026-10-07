@@ -1,0 +1,18 @@
+<li id="stock-entry-{{ entry.pk }}">
+    {% if show == "drawer" %}
+        <a href="{% url 'storage:drawer_detail' entry.drawer.pk %}">{{ entry.drawer.full_path }}</a>
+    {% else %}
+        <a href="{% url 'components:component_detail' entry.component.pk %}">{{ entry.component.display_name }}</a>
+    {% endif %}
+    —
+    <form hx-post="{% url 'inventory:inventory_quantity' entry.pk %}?show={{ show }}"
+          hx-target="#stock-entry-{{ entry.pk }}"
+          hx-swap="outerHTML"
+          style="display:inline">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="{{ entry.quantity }}" min="0" style="width:4em">
+        <button type="submit">Update</button>
+    </form>
+    {% if entry.is_low_stock %}(low stock){% endif %}
+    <a href="{% url 'inventory:inventory_edit' entry.pk %}">edit</a>
+</li>
