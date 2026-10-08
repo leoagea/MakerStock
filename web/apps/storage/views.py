@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView
 
-from .models import Cabinet, Drawer, StorageSystem
+from .models import Cabinet, Drawer, Frame, StorageSystem
 
 
 class StorageSystemListView(ListView):
@@ -14,6 +14,10 @@ class StorageSystemDetailView(DetailView):
     template_name = "storage/system_detail.html"
     context_object_name = "system"
 
+class FrameDetailView(DetailView):
+    model = Frame
+    template_name = "storage/frame_detail.html"
+    context_object_name = "frame"
 
 class CabinetDetailView(DetailView):
     model = Cabinet

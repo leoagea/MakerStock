@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="page-header">
-    <a href="{% url 'storage:system_detail' cabinet.system.pk %}" class="breadcrumb">← {{ cabinet.system.name }}</a>
+  <a href="{% url 'storage:frame_detail' cabinet.frame.pk %}" class="breadcrumb">← {{ cabinet.frame.full_path }}</a>
     <h2>Cabinet {{ cabinet.code }}</h2>
 </div>
 

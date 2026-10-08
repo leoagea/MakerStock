@@ -7,14 +7,14 @@
     {% if system.description %}<span class="hint">{{ system.description }}</span>{% endif %}
 </div>
 
-<h3>Cabinets</h3>
+<h3>Frames</h3>
 <ul class="list-card">
-  {% for cabinet in system.cabinets.all %}
+  {% for frame in system.frames.all %}
     <li class="list-card__item">
-        <a href="{% url 'storage:cabinet_detail' cabinet.pk %}">Cabinet {{ cabinet.code }}</a>
+        <a href="{% url 'storage:frame_detail' frame.pk %}">Frame {{ frame.code }}</a>
     </li>
   {% empty %}
-    <li class="list-card__item list-card__item--empty">No cabinets yet.</li>
+    <li class="list-card__item list-card__item--empty">No frames yet.</li>
   {% endfor %}
 </ul>
 {% endblock %}
