@@ -1,0 +1,14 @@
+{% extends "storage/_storage_base.html" %}
+
+{% block storage_main %}
+<div class="page-header">
+    <h2>Add cabinet</h2>
+</div>
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</div>
+{% endblock %}

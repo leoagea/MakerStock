@@ -448,6 +448,92 @@ textarea { min-height: 5rem; resize: vertical; }
     margin: var(--space-6) auto 0;
 }
 
+/* Storage workspace: system switcher + frame/cabinet tree sidebar */
+
+.storage-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+}
+
+.storage-sidebar {
+    flex: 0 0 240px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: calc(var(--space-5) + 64px);
+}
+
+.storage-sidebar__switcher select {
+    width: 100%;
+}
+
+.storage-sidebar__tree {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.storage-sidebar__tree details {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-2);
+}
+
+.storage-sidebar__tree details:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.storage-sidebar__tree summary {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.storage-sidebar__tree summary a {
+    color: var(--color-text);
+}
+
+.storage-sidebar__tree summary a:hover {
+    color: var(--color-primary);
+}
+
+.storage-sidebar__tree ul {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding-left: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.storage-sidebar__tree .hint {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.storage-sidebar__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+}
+
+.storage-sidebar__actions .btn {
+    justify-content: center;
+}
+
+.storage-main {
+    flex: 1;
+    min-width: 0;
+}
+
 /* HTMX swap transitions */
 
 .htmx-swapping {
@@ -466,4 +552,6 @@ textarea { min-height: 5rem; resize: vertical; }
     header .container { gap: var(--space-2); }
     .list-card__item { padding: var(--space-3) var(--space-4); }
     .stat-banner { flex-direction: column; gap: var(--space-3); }
+    .storage-layout { flex-direction: column; }
+    .storage-sidebar { flex: 1 1 auto; width: 100%; position: static; }
 }

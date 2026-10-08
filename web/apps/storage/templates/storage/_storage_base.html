@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="storage-layout">
+    <aside class="storage-sidebar">
+        {% include "storage/_sidebar.html" %}
+    </aside>
+    <div class="storage-main">
+        {% block storage_main %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

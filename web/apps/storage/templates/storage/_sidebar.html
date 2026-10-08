@@ -1,0 +1,36 @@
+<div class="storage-sidebar__switcher">
+    <select onchange="if (this.value) { window.location.href = this.value; }">
+        <option value="">Choose a system…</option>
+        {% for system in all_systems %}
+            <option value="{% url 'storage:system_detail' system.pk %}" {% if current_system and system.pk == current_system.pk %}selected{% endif %}>{{ system.name }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+{% if current_system %}
+    <nav class="storage-sidebar__tree">
+        {% for frame in current_system.frames.all %}
+            <details {% if current_frame and frame.pk == current_frame.pk %}open{% endif %}>
+                <summary><a href="{% url 'storage:frame_detail' frame.pk %}">Frame {{ frame.code }}</a></summary>
+                <ul>
+                    {% for cabinet in frame.cabinets.all %}
+                        <li><a href="{% url 'storage:cabinet_detail' cabinet.pk %}">Cabinet {{ cabinet.code }}</a></li>
+                    {% empty %}
+                        <li class="hint">No cabinets yet.</li>
+                    {% endfor %}
+                </ul>
+            </details>
+        {% empty %}
+            <p class="hint">No frames yet.</p>
+        {% endfor %}
+    </nav>
+
+    <div class="storage-sidebar__actions">
+        <a href="{% url 'storage:frame_add' %}?system={{ current_system.pk }}" class="btn secondary">+ Add frame</a>
+        {% if current_frame %}
+            <a href="{% url 'storage:cabinet_add' %}?frame={{ current_frame.pk }}" class="btn secondary">+ Add cabinet</a>
+        {% endif %}
+    </div>
+{% else %}
+    <p class="hint">Choose a storage system above.</p>
+{% endif %}

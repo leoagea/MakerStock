@@ -3,13 +3,14 @@ from django.db import IntegrityError
 
 from apps.components.models import Category, Component
 from apps.inventory.models import Inventory
-from apps.storage.models import Cabinet, Drawer, StorageSystem
+from apps.storage.models import Cabinet, Drawer, Frame, StorageSystem
 
 
 @pytest.fixture
 def drawer():
     system = StorageSystem.objects.create(name="Workshop")
-    cabinet = Cabinet.objects.create(system=system, code="A")
+    frame = Frame.objects.create(system=system, code="4")
+    cabinet = Cabinet.objects.create(frame=frame, code="A")
     return Drawer.objects.create(cabinet=cabinet, code="D-042")
 
 

@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "storage/_storage_base.html" %}
 
-{% block content %}
+{% block storage_main %}
 <div class="page-header">
     <a href="{% url 'storage:system_detail' frame.system.pk %}" class="breadcrumb">← {{ frame.system.name }}</a>
     <h2>Frame {{ frame.code }}</h2>

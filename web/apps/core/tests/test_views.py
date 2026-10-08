@@ -3,13 +3,14 @@ from django.urls import reverse
 
 from apps.components.models import Category, Component
 from apps.inventory.models import Inventory
-from apps.storage.models import Cabinet, Drawer, StorageSystem
+from apps.storage.models import Cabinet, Drawer, Frame, StorageSystem
 
 
 @pytest.mark.django_db
 def test_dashboard_shows_counts_and_low_stock(client):
     system = StorageSystem.objects.create(name="Workshop")
-    cabinet = Cabinet.objects.create(system=system, code="A")
+    frame = Frame.objects.create(system=system, code="4")
+    cabinet = Cabinet.objects.create(frame=frame, code="A")
     drawer = Drawer.objects.create(cabinet=cabinet, code="D-042")
     category = Category.objects.create(name="Resistors", unit="Ω")
     component = Component.objects.create(value="10k", category=category)

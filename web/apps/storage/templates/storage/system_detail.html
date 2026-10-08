@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "storage/_storage_base.html" %}
 
-{% block content %}
+{% block storage_main %}
 <div class="page-header">
     <a href="{% url 'storage:system_list' %}" class="breadcrumb">← All storage systems</a>
     <h2>{{ system.name }}</h2>
