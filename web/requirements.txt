@@ -2,3 +2,9 @@ Django>=5.0,<5.1
 django-environ>=0.11
 django-htmx>=1.17
 psycopg[binary]>=3.1
+requests>=2.31
+
+# Local HTTPS dev server only (runserver_plus --cert-file), see config/settings/dev.py
+django-extensions>=3.2
+Werkzeug>=2.3
+pyOpenSSL>=23.0
