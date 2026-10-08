@@ -7,14 +7,28 @@
     {% if system.description %}<span class="hint">{{ system.description }}</span>{% endif %}
 </div>
 
+<p><a href="{% url 'storage:system_3d' system.pk %}">View in 3D →</a></p>
+
 <h3>Frames</h3>
-<ul class="list-card">
+<div class="list-card">
   {% for frame in system.frames.all %}
-    <li class="list-card__item">
-        <a href="{% url 'storage:frame_detail' frame.pk %}">Frame {{ frame.code }}</a>
-    </li>
+    <details class="frame-row">
+        <summary class="frame-row__summary">Frame {{ frame.code }}{% if frame.name %} — {{ frame.name }}{% endif %}</summary>
+        <div class="frame-row__cabinets">
+            <ul class="list-card">
+                {% for cabinet in frame.cabinets.all %}
+                    <li class="list-card__item">
+                        <a href="{% url 'storage:cabinet_detail' cabinet.pk %}">Cabinet {{ cabinet.code }}</a>
+                    </li>
+                {% empty %}
+                    <li class="list-card__item list-card__item--empty">No cabinets yet.</li>
+                {% endfor %}
+            </ul>
+            <p><a href="{% url 'storage:frame_detail' frame.pk %}">Open Frame {{ frame.code }} →</a></p>
+        </div>
+    </details>
   {% empty %}
-    <li class="list-card__item list-card__item--empty">No frames yet.</li>
+    <p class="list-card__item list-card__item--empty">No frames yet.</p>
   {% endfor %}
-</ul>
+</div>
 {% endblock %}

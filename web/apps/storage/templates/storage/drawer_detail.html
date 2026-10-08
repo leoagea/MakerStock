@@ -4,7 +4,7 @@
 <div class="page-header">
     <a href="{% url 'storage:cabinet_detail' drawer.cabinet.pk %}" class="breadcrumb">← {{ drawer.cabinet.full_path }}</a>
     <h2>Drawer {{ drawer.code }}</h2>
-    <span class="hint">{{ drawer.full_path }}</span>
+    <span class="hint">Column {{ drawer.column }}, Row {{ drawer.cabinet.row }}</span>
 </div>
 
 <h3>Contents</h3>

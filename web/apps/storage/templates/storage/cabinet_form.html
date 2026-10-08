@@ -1,14 +1,28 @@
 {% extends "storage/_storage_base.html" %}
+{% load static %}
 
 {% block storage_main %}
 <div class="page-header">
     <h2>Add cabinet</h2>
 </div>
+
+{% if current_frame %}
+<div id="cabinet-3d-picker" class="viewer-3d card"
+     data-visualization-url="{% url 'storage:frame_visualization_data' current_frame.pk %}"></div>
+<p id="cabinet-3d-picker-hint" class="hint">Click a face of an existing cabinet to snap the new one flush against it.</p>
+{% endif %}
+
 <div class="card">
-    <form method="post">
+    <form method="post" {% if current_frame %}action="?frame={{ current_frame.pk }}"{% endif %}>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
 </div>
+
+{% if current_frame %}
+<script src="{% static 'vendor/three/three.min.js' %}" defer></script>
+<script src="{% static 'vendor/three/OrbitControls.js' %}" defer></script>
+<script src="{% static 'js/cabinet_picker_3d.js' %}" defer></script>
+{% endif %}
 {% endblock %}

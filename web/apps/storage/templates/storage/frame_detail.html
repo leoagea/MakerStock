@@ -7,6 +7,8 @@
     {% if frame.name %}<span class="hint">{{ frame.name }}</span>{% endif %}
 </div>
 
+<p><a href="{% url 'storage:frame_3d' frame.pk %}">View in 3D →</a></p>
+
 <h3>Cabinets</h3>
 <ul class="list-card">
   {% for cabinet in frame.cabinets.all %}

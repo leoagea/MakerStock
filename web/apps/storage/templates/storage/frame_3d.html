@@ -1,0 +1,21 @@
+{% extends "storage/_storage_base.html" %}
+{% load static %}
+
+{% block storage_main %}
+<div class="page-header">
+    <a href="{% url 'storage:frame_detail' frame.pk %}" class="breadcrumb">← Frame {{ frame.code }}</a>
+    <h2>Frame {{ frame.code }} — 3D view</h2>
+</div>
+
+<div id="frame-3d-viewer" class="viewer-3d card"
+     data-visualization-url="{% url 'storage:frame_visualization_data' frame.pk %}"></div>
+
+<div class="card viewer-3d__info">
+    <p id="viewer-3d-selected-name"><strong>Selected:</strong> <span>Nothing selected — click a cabinet or drawer</span></p>
+    <p id="viewer-3d-selected-details" class="hint"></p>
+</div>
+
+<script src="{% static 'vendor/three/three.min.js' %}" defer></script>
+<script src="{% static 'vendor/three/OrbitControls.js' %}" defer></script>
+<script src="{% static 'js/frame_3d.js' %}" defer></script>
+{% endblock %}

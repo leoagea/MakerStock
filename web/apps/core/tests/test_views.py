@@ -10,8 +10,8 @@ from apps.storage.models import Cabinet, Drawer, Frame, StorageSystem
 def test_dashboard_shows_counts_and_low_stock(client):
     system = StorageSystem.objects.create(name="Workshop")
     frame = Frame.objects.create(system=system, code="4")
-    cabinet = Cabinet.objects.create(frame=frame, code="A")
-    drawer = Drawer.objects.create(cabinet=cabinet, code="D-042")
+    cabinet = Cabinet.objects.create(frame=frame, code="A", column=1, row=1)
+    drawer = Drawer.objects.create(cabinet=cabinet, code="D-042", column=1, row=1)
     category = Category.objects.create(name="Resistors", unit="Ω")
     component = Component.objects.create(value="10k", category=category)
     Inventory.objects.create(component=component, drawer=drawer, quantity=2, low_stock_threshold=5)

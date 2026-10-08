@@ -350,6 +350,29 @@ textarea { min-height: 5rem; resize: vertical; }
 
 .list-card__item--empty:hover { background: transparent; }
 
+/* Frame accordion (system page): click a frame to expand its cabinets inline */
+
+.frame-row {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.frame-row:last-child { border-bottom: none; }
+
+.frame-row__summary {
+    cursor: pointer;
+    padding: var(--space-4) var(--space-5);
+    font-weight: 600;
+    transition: background var(--transition-fast);
+}
+
+.frame-row__summary:hover { background: var(--color-surface-muted); }
+
+.frame-row__cabinets {
+    padding: 0 var(--space-5) var(--space-4);
+}
+
+.frame-row__cabinets .list-card { margin-bottom: var(--space-3); }
+
 .list-card__main {
     display: flex;
     flex-direction: column;
@@ -535,6 +558,26 @@ textarea { min-height: 5rem; resize: vertical; }
 }
 
 /* HTMX swap transitions */
+
+/* 3D frame visualizer */
+
+.viewer-3d {
+    width: 100%;
+    height: 480px;
+    padding: 0;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.viewer-3d canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.viewer-3d__info {
+    margin-top: var(--space-4);
+}
 
 .htmx-swapping {
     opacity: 0;

@@ -8,8 +8,8 @@ from apps.storage.models import Cabinet, Drawer, Frame, StorageSystem
 def test_full_path_resolves_through_hierarchy():
     system = StorageSystem.objects.create(name="Workshop")
     frame = Frame.objects.create(system=system, code="4")
-    cabinet = Cabinet.objects.create(frame=frame, code="A")
-    drawer = Drawer.objects.create(cabinet=cabinet, code="D-042")
+    cabinet = Cabinet.objects.create(frame=frame, code="A", column=1, row=1)
+    drawer = Drawer.objects.create(cabinet=cabinet, code="D-042", column=1, row=1)
 
     assert frame.full_path == "Frame 4 → Workshop"
     assert cabinet.full_path == "Cabinet A → Frame 4 → Workshop"
@@ -29,10 +29,10 @@ def test_frame_code_unique_per_system():
 def test_cabinet_code_unique_per_frame():
     system = StorageSystem.objects.create(name="Workshop")
     frame = Frame.objects.create(system=system, code="4")
-    Cabinet.objects.create(frame=frame, code="A")
+    Cabinet.objects.create(frame=frame, code="A", column=1, row=1)
 
     with pytest.raises(IntegrityError):
-        Cabinet.objects.create(frame=frame, code="A")
+        Cabinet.objects.create(frame=frame, code="A", column=1, row=1)
 
 
 @pytest.mark.django_db
@@ -41,6 +41,6 @@ def test_same_cabinet_code_allowed_across_different_frames():
     frame_one = Frame.objects.create(system=system, code="4")
     frame_two = Frame.objects.create(system=system, code="5")
 
-    Cabinet.objects.create(frame=frame_one, code="A")
+    Cabinet.objects.create(frame=frame_one, code="A", column=1, row=1)
     # Should not raise: uniqueness is scoped per frame, not global.
-    Cabinet.objects.create(frame=frame_two, code="A")
+    Cabinet.objects.create(frame=frame_two, code="A", column=1, row=1)

@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -28,9 +29,26 @@ class Frame(models.Model):
         return f"Frame {self.code} → {self.system.name}"
 
 class Cabinet(models.Model):
+    """
+    3D visualizer coordinate system (millimeters throughout):
+      X = right, Y = up, Z = depth (into the frame, away from the viewer).
+      Origin is the Frame's own bottom-left-front corner.
+      position_x/y/z is this cabinet's minimum corner (bottom-left-front),
+      not its center.
+    """
+
     frame = models.ForeignKey(Frame, on_delete=models.CASCADE, related_name="cabinets")
+    column = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    row = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     code = models.CharField(max_length=50)
     name = models.CharField(max_length=100, blank=True)
+
+    width = models.FloatField(default=300.0, validators=[MinValueValidator(1)])
+    height = models.FloatField(default=400.0, validators=[MinValueValidator(1)])
+    depth = models.FloatField(default=250.0, validators=[MinValueValidator(1)])
+    position_x = models.FloatField(default=0.0)
+    position_y = models.FloatField(default=0.0)
+    position_z = models.FloatField(default=0.0)
 
     class Meta:
         unique_together = ("frame", "code")
@@ -46,6 +64,8 @@ class Cabinet(models.Model):
 
 class Drawer(models.Model):
     cabinet = models.ForeignKey(Cabinet, on_delete=models.CASCADE, related_name="drawers")
+    column = models.PositiveIntegerField()
+    row = models.PositiveIntegerField()
     code = models.CharField(max_length=50)
     name = models.CharField(max_length=100, blank=True)
 

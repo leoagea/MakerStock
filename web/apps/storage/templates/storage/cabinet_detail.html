@@ -4,7 +4,11 @@
 <div class="page-header">
   <a href="{% url 'storage:frame_detail' cabinet.frame.pk %}" class="breadcrumb">← {{ cabinet.frame.full_path }}</a>
     <h2>Cabinet {{ cabinet.code }}</h2>
+    <span class="hint">Column {{ cabinet.column }}, Row {{ cabinet.row }}</span>
+    <span class="hint">{{ cabinet.width }}×{{ cabinet.height }}×{{ cabinet.depth }}mm</span>
 </div>
+
+<p><a href="{% url 'storage:frame_3d' cabinet.frame.pk %}">View in 3D →</a></p>
 
 <h3>Drawers</h3>
 <ul class="list-card">

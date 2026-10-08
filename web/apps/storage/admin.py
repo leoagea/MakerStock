@@ -29,7 +29,7 @@ class FrameAdmin(admin.ModelAdmin):
 
 @admin.register(Cabinet)
 class CabinetAdmin(admin.ModelAdmin):
-    list_display = ("code", "frame")
+    list_display = ("code", "frame", "column", "row")
     list_filter = ("frame__system", "frame")
     inlines = [DrawerInline]
 

@@ -1,0 +1,22 @@
+{% extends "storage/_storage_base.html" %}
+{% load static %}
+
+{% block storage_main %}
+<div class="page-header">
+    <a href="{% url 'storage:system_detail' system.pk %}" class="breadcrumb">← {{ system.name }}</a>
+    <h2>{{ system.name }} — 3D view</h2>
+    <span class="hint">Click a frame to open it</span>
+</div>
+
+<div id="system-3d-viewer" class="viewer-3d card"
+     data-visualization-url="{% url 'storage:system_visualization_data' system.pk %}"></div>
+
+<div class="card viewer-3d__info">
+    <p id="viewer-3d-selected-name"><strong>Selected:</strong> <span>Nothing selected — click a frame to open it</span></p>
+    <p id="viewer-3d-selected-details" class="hint"></p>
+</div>
+
+<script src="{% static 'vendor/three/three.min.js' %}" defer></script>
+<script src="{% static 'vendor/three/OrbitControls.js' %}" defer></script>
+<script src="{% static 'js/system_3d.js' %}" defer></script>
+{% endblock %}
